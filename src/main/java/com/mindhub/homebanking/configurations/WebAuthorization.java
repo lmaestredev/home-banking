@@ -34,19 +34,20 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/clients").hasAuthority("ADMIN")
                 .antMatchers("/api/accounts").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,"/api/admin/newLoan").hasAuthority("ADMIN")
-
+                .antMatchers(HttpMethod.DELETE,"/api/delete/loan/{loanId}").hasAuthority("ADMIN")
 
                 .antMatchers("/web/**").hasAnyAuthority("CLIENT, ADMIN")
                 .antMatchers(HttpMethod.GET,"/api/clients/current").hasAnyAuthority("CLIENT, ADMIN")
                 .antMatchers(HttpMethod.GET,"/api/accounts/{id}").hasAnyAuthority("CLIENT, ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/loan").hasAnyAuthority("CLIENT, ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/deleteAccount/{accountNumber}").hasAnyAuthority("CLIENT, ADMIN")
+
                 .antMatchers(HttpMethod.POST,"/api/clients/current/accounts").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/clients/current/cards").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/transaction").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET,"/api/loan").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/loan").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.DELETE,"/api/deleteContact").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.DELETE,"/api/deleteCard/{cardNumber}").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.DELETE,"/api/deleteAccount/{accountNumber}").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/transactions/pdf").hasAuthority("CLIENT")
 
         ;

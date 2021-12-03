@@ -58,7 +58,7 @@ const app = Vue.createApp({
                                 timer:2500,
                             }) 
 
-                            location.reload()
+                            window.location.href = "accounts.html";
                         }
                         )
                         .catch((err) => 

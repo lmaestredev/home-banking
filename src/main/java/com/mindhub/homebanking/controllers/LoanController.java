@@ -129,4 +129,21 @@ public class LoanController {
         loanRepository.save(newLoan);
         return new ResponseEntity<>("New loan created successfully",HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/api/delete/loan/{loanId}")
+    public ResponseEntity<?> deleteLoan(Authentication authentication, @PathVariable Long loanId){
+
+        Client admin = clientRepository.findByEmail(authentication.getName());
+
+        if (!admin.getRole().toString().equals("ADMIN")){
+            return new ResponseEntity<>("You don't have access to this service", HttpStatus.FORBIDDEN);
+        }
+
+        if(!loanRepository.existsById(loanId)){
+            return new ResponseEntity<>("Loan selected doesn't exists", HttpStatus.FORBIDDEN);
+        }
+        loanRepository.deleteById(loanId);
+        return new ResponseEntity<>("Loan deleted successfully",HttpStatus.CREATED);
+
+    }
 }

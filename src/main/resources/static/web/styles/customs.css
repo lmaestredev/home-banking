@@ -218,6 +218,11 @@ h1{
     margin:0 auto !important;
 }
 
+.overFlow-adminTable{
+    height: 300px;
+    overflow-y: scroll;
+}
+
 .table_container{
     background-color: #27293d;
     border-radius: 15px;
@@ -258,7 +263,10 @@ td {
 #accountsSection,
 #cardSection,
 #accountsSection,
-#transactionSection{
+#transactionSection,
+#adminItem1,
+#adminItem2,
+#adminItem3{
     display:none;
 }
 

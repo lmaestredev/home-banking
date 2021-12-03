@@ -23,7 +23,7 @@
                 </div>
     
                 <div class="offcanvas-body">
-                    <div class="d-flex flex-column pt-3 px-2" v-cloak>    
+                    <div class="d-flex flex-column pt-3 px-2">    
                         
                         <a  href="./accounts.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
                             <span class="span_icon"><i class="fas fa-wallet navbar_icon"></i></span>
@@ -40,17 +40,17 @@
                             <p class="navbar_item">SEND MONEY</p>  
                         </a>
 
-                        <a v-if="client.role == 'ADMIN'"  href="./create-loan.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <a id="adminItem1" ref="adminItem1" href="./create-loan.html" class=" mb-4 justify-content-between align-items-center item_container">
                             <span class="span_icon"><i class="bi bi-cash-coin navbar_icon"></i></span>
                             <p class="navbar_item">CREATE NEW LOAN</p>  
                         </a>
 
-                        <a v-if="client.role == 'ADMIN'"  href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <a id="adminItem2" ref="adminItem2" href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class=" mb-4 justify-content-between align-items-center item_container">
                             <span class="span_icon"><i class="bi bi-pie-chart navbar_icon"></i></span>
                             <p class="navbar_item">H2 CONSOLE</p>  
                         </a>
 
-                        <a v-if="client.role == 'ADMIN'"  href="../manager.html" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <a id="adminItem3" ref="adminItem3" href="../manager.html" target="_blank" class=" mb-4 justify-content-between align-items-center item_container">
                             <span class="span_icon"><i class="bi bi-folder-plus navbar_icon"></i></span>
                             <p class="navbar_item">MANAGER</p>  
                         </a>
@@ -97,7 +97,7 @@
                                         
                                             <ul class="dropdown-menu dropdown_secondary" aria-labelledby="defaultDropdown">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="#">Payments made</a>
+                                                    <a class="nav-link active" aria-current="page" href="#">Payments</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link active" aria-current="page" href="#">Insurance and Assistance</a>
@@ -120,7 +120,7 @@
                             <img src="./assets/loader.svg" alt="loader">
                         </div>
                         <div ref="accountsSection" id="accountsSection">
-                            <section class="table_container px-3 pt-2 pb-3 mb-3">
+                            <section class="table_container px-3 pt-2 pb-3 mb-3" :class="[client.role == 'ADMIN' ? 'overFlow-adminTable' : null]">
                                 <div class="d-flex justify-content-between align-items-end mb-3">
                                     <p class="subtitle_section">Balance</p>
                                     
@@ -142,7 +142,7 @@
                                     <i class="fas fa-plus-circle navbar_icon me-1"></i>Create a new account
                                 </button>
         
-                                <table class="table text-light">
+                                <table v-if="client.role =='CLIENT' " class="table text-light">
                                     <thead>
                                         <tr class="pb-2">
                                             <th class="titles_table text-center">ACCOUNTS ID</th>
@@ -162,29 +162,51 @@
                                             <td class="py-2 text-center"><p @click.prevent="deleteAccount(account.number)" class="delete-btn">Delete</p></td>
                                         </tr>
                                     </tbody>
-        
                                 </table>
-                                <div v-if="accounts.length == 0" class="text-center">
+
+                                <table v-else class="table text-light">
+                                    <thead>
+                                        <tr class="pb-2">
+                                            <th class="titles_table text-center">ACCOUNTS ID</th>
+                                            <th class="titles_table">NUMBER</th>
+                                            <th class="titles_table">TYPE</th>
+                                            <th class="titles_table">BALANCE</th>
+                                            <th class="titles_table col-1"></th>
+                                        </tr>
+                                    </thead>
+        
+                                    <tbody>
+                                        <tr v-for="account in accountsRepository" >
+                                            <td v-cloak class="py-2 text-center">{{account.id}}</td>
+                                            <td v-cloak class="py-2">{{account.number}}</td>
+                                            <td v-cloak class="py-2">{{account.accountType}}</td>
+                                            <td v-cloak class="py-2">&dollar;{{account.balance}}</td>
+                                            <td class="py-2 text-center"><p @click.prevent="deleteAccount(account.number)" class="delete-btn">Delete</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div v-if="accounts.length == 0 && client.role == 'CLIENT'" class="text-center">
                                     <p>I'm so sorry, you don't have any account</p>
                                 </div>
                             </section>
         
-                            <section class="table_container px-3 pt-2 pb-5 loans_container">
+                            <section class="table_container px-3 pt-2 pb-5 loans_container" :class="[client.role == 'ADMIN' ? 'overFlow-adminTable' : null]">
                                 <div class="d-flex justify-content-between align-items-end mb-2">
                                     <p class="subtitle_section">Loans</p>                            
                                 </div>
         
                                 <button v-if="loans.length < 3 && client.role == 'CLIENT'" @click="redirecToApplyLoan" class="btn text-white transaction_btn mb-2" type="button">
-                                    <i class="fas fa-plus-circle navbar_icon me-1"></i>apply a new loan
+                                    <i class="fas fa-plus-circle navbar_icon me-1"></i>New loan application
                                 </button>
                                 <button v-else-if="loans.length >= 3 && client.role == 'CLIENT'" @click="applyLoanError" class="btn text-white transaction_btn mb-2" type="button">
-                                    <i class="fas fa-plus-circle navbar_icon me-1"></i>apply a new loan
+                                    <i class="fas fa-plus-circle navbar_icon me-1"></i>New loan application
                                 </button>
         
-                                <table class="table text-light">
+                                <table v-if="client.role == 'CLIENT' " class="table text-light">
                                     <thead>
                                     <tr class="pb-2">
-                                        <th scope="col" class="titles_table text-center">ID OPERATION</th>
+                                        <th scope="col" class="titles_table text-center">OPERATION ID</th>
                                         <th scope="col" class="titles_table text-center">TYPE</th>
                                         <th scope="col" class="titles_table text-center">AMOUNT TO PAY</th>
                                         <th scope="col" class="titles_table text-center">PAYMENTS</th>
@@ -200,8 +222,31 @@
                                     </tr>
                                     </tbody>
                                 </table>
+
+                                <table v-else class="table text-light">
+                                    <thead>
+                                    <tr class="pb-2">
+                                        <th scope="col" class="titles_table text-center">LOAN NAME</th>
+                                        <th scope="col" class="titles_table text-center">LOAN ID</th>
+                                        <th scope="col" class="titles_table text-center">MAX AMOUNT</th>
+                                        <th scope="col" class="titles_table text-center">PAYMENTS</th>
+                                        <th class="titles_table col-1"></th>
+                                    </tr>
+                                    </thead>
         
-                                <div class="text-center" v-if="loans.length == 0">
+                                    <tbody>
+                                    <tr v-for="loan in loansRepository">
+                                        <td class="py-2 text-center">{{loan.name}}</td>
+                                        <td class="py-2 text-center">{{loan.id}}</td>
+                                        <td class="py-2 text-center">&dollar;{{loan.maxAmount}}</td>
+                                        <td class="py-2 text-center">{{loan.payments}}</td>
+                                        <td class="py-2 text-center"><p @click.prevent="deleteLoan(loan.id)" class="delete-btn">Delete</p></td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+        
+                                <div class="text-center" v-if="loans.length == 0 && client.role == 'CLIENT' ">
                                     <p class="text-danger">YOU DON'T HAVE ANY LOAN YET</p>
                                 </div>
                             </section>

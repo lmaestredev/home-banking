@@ -22,7 +22,7 @@
                 </div>
     
                 <div class="offcanvas-body">
-                    <div class="d-flex flex-column pt-3 px-2" v-cloak>
+                    <div class="d-flex flex-column pt-3 px-2">
                         <a  href="./accounts.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
                             <span class="span_icon"><i class="fas fa-wallet navbar_icon"></i></span>
                             <p class="navbar_item">ACCOUNTS</p>  
@@ -43,12 +43,12 @@
                             <p class="navbar_item">CREATE NEW LOAN</p>  
                         </a>
 
-                        <a v-if="client.role == 'ADMIN'"  href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <a v-cloak v-if="client.role == 'ADMIN'"  href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
                             <span class="span_icon"><i class="bi bi-pie-chart navbar_icon"></i></span>
                             <p class="navbar_item">H2 CONSOLE</p>  
                         </a>
 
-                        <a v-if="client.role == 'ADMIN'"  href="../manager.html" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <a v-cloak v-if="client.role == 'ADMIN'"  href="../manager.html" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
                             <span class="span_icon"><i class="bi bi-folder-plus navbar_icon"></i></span>
                             <p class="navbar_item">MANAGER</p>  
                         </a>
@@ -95,7 +95,7 @@
                                         
                                             <ul class="dropdown-menu dropdown_secondary" aria-labelledby="defaultDropdown">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="#">Payments made</a>
+                                                    <a class="nav-link active" aria-current="page" href="#">Payments</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link active" aria-current="page" href="#">Insurance and Assistance</a>
@@ -249,7 +249,7 @@
                                     </div>
                                 </div>  
                                 
-                                <p @click.prevent="changeDeleteBtnValue" v-if="cards.length > 0" class="position-absolute bottom-0 end-0 me-3 wantDeleteCard-btn">I want delete a card</p>
+                                <p @click.prevent="changeDeleteBtnValue" v-if="cards.length > 0" class="position-absolute bottom-0 end-0 me-3 wantDeleteCard-btn">Delete card</p>
                             </article>
 
                             <div class="card_container py-4 d-flex justify-content-center  h-100">

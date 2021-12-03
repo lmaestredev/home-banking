@@ -4,15 +4,20 @@ const app = Vue.createApp({
             client:[],
             accounts:[],
             loans:[],
+            loansRepository:[],
+            accountsRepository:[]
         }
     },
     created(){
         this.loadData();
         this.crearUrl();
+        this.getLoansRepository();
+        this.getAccountsRepository();
         // axios.get('http://localhost:8080/api/clients/current',{headers:{'accept':'application/xml'}})
         // .then(response =>
         //     console.log(response.data)
         // )
+    },computed:{
     },
     methods:{
         loadData(){
@@ -26,13 +31,28 @@ const app = Vue.createApp({
 
                 let loader = this.$refs.loader
                 let accountsSection = this.$refs.accountsSection
+                let adminItem1 = this.$refs.adminItem1
+                let adminItem2 = this.$refs.adminItem2
+                let adminItem3 = this.$refs.adminItem3
     
                 loader.style.display = "none";
                 accountsSection.style.display = "block";
+                
+                if(this.client.role == 'ADMIN' ){
+                    adminItem1.style.display = "flex";
+                    adminItem2.style.display = "flex";
+                    adminItem3.style.display = "flex";
+                }
+                
             })
-            .catch(e => console.log(e))
-
-           
+            .catch(e => console.log(e))           
+        },
+        getLoansRepository(){
+            axios.get('/api/loan')
+            .then(response => {
+                this.loansRepository = response.data.loans
+            })
+            .catch(err =>console.log(err))
         },
         crearUrl(id){ 
             return `account.html?id=${id}`
@@ -116,8 +136,6 @@ const app = Vue.createApp({
                             timer:2000,
                         }) 
                     })
-
-                
                 }
             })
             
@@ -170,6 +188,27 @@ const app = Vue.createApp({
                         })
                     })
                 }
+            })
+        },
+        deleteLoan(id){
+            axios.delete(`/api/delete/loan/${id}`)
+            .then(response =>{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `${response.data} `,
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                location.reload()
+            })
+            .catch(err => {console.log(err)})
+
+        },
+        getAccountsRepository(){
+            axios.get('/api/accounts')
+            .then(response => {
+                this.accountsRepository = response.data.accounts
             })
         }
     },
