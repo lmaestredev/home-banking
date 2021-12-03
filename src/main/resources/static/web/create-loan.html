@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/58d99c8dac.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/customs.css">
+    <link rel="shortcut icon" href="./assets/bank.ico" type="image/x-icon" class="favicon">
+    <title>MindHub Brothers Bank</title>
+    
+</head>
+<body>
+    <div id="app" >
+        <div class="container-fluid row d-fle app_container">
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <i class="fas fa-university text-white"></i>
+                    <h1 class="offcanvas-title" id="offcanvasExampleLabel">MINDHUB BROTHERS BANK</h1>
+                    <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+    
+                <div class="offcanvas-body">
+                    <div class="d-flex flex-column pt-3 px-2" v-cloak>    
+                        
+                        <a  href="./accounts.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="fas fa-wallet navbar_icon"></i></span>
+                            <p class="navbar_item">ACCOUNTS</p>  
+                        </a>
+    
+                        <a href="./cards.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-credit-card navbar_icon"></i></span>
+                            <p class="navbar_item">CARDS</p>  
+                        </a>
+    
+                        <a  href="./transactions.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-arrow-left-right navbar_icon"></i></span>
+                            <p class="navbar_item">SEND MONEY</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="./create-loan.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-cash-coin navbar_icon"></i></span>
+                            <p class="navbar_item">CREATE NEW LOAN</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-pie-chart navbar_icon"></i></span>
+                            <p class="navbar_item">H2 CONSOLE</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="../manager.html" target="_blank"  class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-folder-plus navbar_icon"></i></span>
+                            <p class="navbar_item">MANAGER</p>  
+                        </a>
+                    </div>                
+                </div>
+            </div>
+    
+            <div class="col d-flex flex-column justify-content-between main_container">
+                <div>
+                    <header class="d-flex justify-content-between align-items-center px-3 px-md-2 py-3 mb-3">
+                        <nav class="navbar navbar-expand-md w-100">
+                            <div class="container-fluid d-flex justify-content-between px-md-4">
+                                <div class="w-100 d-flex align-items-center justify-content-between container_heading ">
+                                    <div class="d-flex align-items-center">
+
+                                        <button class="btn navbar-btn d-lg-none " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                            <span class="bars bar1"></span>
+                                            <span class="bars bar2"></span>
+                                            <span class="bars bar3"></span>
+                                        </button>
+                                    
+                                        <a class="navbar-brand subtitle_page" href="./create-loan.html">CREATE NEW LOAN</a>
+                                    </div>
+    
+    
+                                    <div class="d-flex">
+                                        <div  class=" dropdown">
+                                            <a v-cloak class="nav-link user_name dropdown-toggle me-md-3" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{client.firstName}} {{client.lastName}}
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown_secondary" aria-labelledby="navbarDropdownMenuLink">
+                                                <li class="profile_item"><a class="dropdown-item" href="#">Profile</a></li>
+                                                <li><a @click="logOut" class="dropdown-item" href="#"><i class="bi bi-box-arrow-left"></i> Log out</a></li>
+                                            </ul>
+                                        </div>
+    
+                                        <div class="btn-group">
+                                            <button class="btn text-white dropdown-toggle dropdown-options threeCircles-btn  d-flex flex-column justify-content-around align-items-center" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                                <span class="circle"></span>
+                                                <span class="circle"></span>
+                                                <span class="circle"></span>
+                                            </button>
+                                        
+                                            <ul class="dropdown-menu dropdown_secondary" aria-labelledby="defaultDropdown">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Payments made</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Insurance and Assistance</a>
+                                                </li>
+                                            
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Help</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>  
+                    </header>
+    
+    
+                    <main  class="row p-4 pt-0">
+                        <div ref="loader" class="text-center table_container">
+                            <img src="./assets/loader.svg" alt="loader">
+                        </div>
+                        <div ref="accountsSection" id="accountsSection">
+                            <section class="table_container px-3 pt-2 pb-3 mb-3">
+
+                                <div class="d-flex justify-content-between align-items-end py-2 pe-3 mb-2 subtitle_cards">
+                                    <p class="subtitle_section ps-3">Create a new loan</p>
+                                </div>
+
+                                <article class="d-flex justify-content-center">
+                                    <form class="form_transaction py-3 d-flex flex-column align-items-center mb-2">
+                                        <fieldset  class="w-100 mb-3">
+                                            <p class="subtitle_transactionData">Write a name for the new loan:</p>
+                                            <input class="rounded ps-1" v-model="dataLoan.loanName" type="text">
+                                        </fieldset>
+        
+                                        <fieldset class="w-100 mb-3">
+                                            <p class="subtitle_transactionData">What is the max amount to the loan?  (Max amount available is $200000)</p>
+                                            <input class="rounded ps-1" v-model="dataLoan.loanAmount" type="number">
+                                        </fieldset>
+        
+                                        <fieldset class="w-100 mb-3">
+                                            <p class="subtitle_transactionData">Choose a payments for the loan</p>
+                                            <select class="form-select ps-2" aria-label="Default select example" v-model="dataLoan.loanPayments">
+                                                <option selected disabled>Could be:</option>
+                                                <option value="6">6</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </fieldset>
+        
+                                        <fieldset class="w-100 mb-3">
+                                            <p class="subtitle_transactionData">What will be the percentage?</p>
+                                            <input class="rounded ps-1" v-model="dataLoan.loanPercentage" type="number">
+                                        </fieldset>
+                                            
+                                        <button v-if="dataLoan.loanName != '' && dataLoan.loanAmount != null && dataLoan.loanPayments != null && dataLoan.loanPercentage != null" @click.prevent="createNewLoan"  class="submit_transaction w-20">Send</button>
+                                        
+                                    </form>
+                                </article>
+                            </section>
+                        </div>
+                    </main> 
+                </div>
+                
+    
+                <footer class="row d-flex flex-column flex-md-row justify-content-between">
+                    <div class="col-md-7 d-flex justify-content-around">
+                        <a href="#">MINDHUB BROTHERS BANK</a>
+                        <a href="#">ABOUT US</a>
+                        <a href="#">Q&A</a>
+                    </div>
+    
+                    <div class="col-md-5 d-flex justify-content-center justify-content-md-end pt-3 pt-md-0">
+                        &copy; 2021 made by Luis Maestre
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./js/create-loan.js"></script>
+</body>
+</html>

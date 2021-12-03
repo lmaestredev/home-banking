@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/58d99c8dac.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/customs.css">
+    <link rel="shortcut icon" href="./assets/bank.ico" type="image/x-icon" class="favicon">
+    <title>MindHub Brothers Bank</title>
+    
+</head>
+<body>
+    <div id="app" >
+        <div class="container-fluid row d-fle app_container">
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <i class="fas fa-university text-white"></i>
+                    <h1 class="offcanvas-title" id="offcanvasExampleLabel">MINDHUB BROTHERS BANK</h1>
+                    <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+    
+                <div class="offcanvas-body">
+                    <div class="d-flex flex-column pt-3 px-2" v-cloak>    
+                        
+                        <a  href="./accounts.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="fas fa-wallet navbar_icon"></i></span>
+                            <p class="navbar_item">ACCOUNTS</p>  
+                        </a>
+    
+                        <a href="./cards.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-credit-card navbar_icon"></i></span>
+                            <p class="navbar_item">CARDS</p>  
+                        </a>
+    
+                        <a  href="./transactions.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-arrow-left-right navbar_icon"></i></span>
+                            <p class="navbar_item">SEND MONEY</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="./create-loan.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-cash-coin navbar_icon"></i></span>
+                            <p class="navbar_item">CREATE NEW LOAN</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-pie-chart navbar_icon"></i></span>
+                            <p class="navbar_item">H2 CONSOLE</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="../manager.html" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-folder-plus navbar_icon"></i></span>
+                            <p class="navbar_item">MANAGER</p>  
+                        </a>
+
+                    </div>                
+                </div>
+            </div>
+    
+            <div class="col d-flex flex-column justify-content-between main_container">
+                <div>
+                    <header class="d-flex justify-content-between align-items-center px-3 px-md-2 py-3 mb-3">
+                        <nav class="navbar navbar-expand-md w-100">
+                            <div class="container-fluid d-flex justify-content-between px-md-4">
+    
+                                <div class="w-100 d-flex align-items-center justify-content-between container_heading ">
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn navbar-btn d-lg-none " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                            <span class="bars bar1"></span>
+                                            <span class="bars bar2"></span>
+                                            <span class="bars bar3"></span>
+                                        </button>
+                                    
+                                        <a class="navbar-brand subtitle_page" href="./accounts.html">ACCOUNTS</a>
+                                    </div>
+    
+    
+                                    <div class="d-flex">
+                                        <div  class=" dropdown">
+                                            <a v-cloak class="nav-link user_name dropdown-toggle me-md-3" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{client.firstName}} {{client.lastName}}
+                                            </a>
+                                            <ul class="dropdown-menu dropdown_secondary" aria-labelledby="navbarDropdownMenuLink">
+                                                <li class="profile_item"><a class="dropdown-item" href="#">Profile</a></li>
+                                                <li><a @click="logOut" class="dropdown-item" href="#"><i class="bi bi-box-arrow-left"></i> Log out</a></li>
+                                            </ul>
+                                        </div>
+    
+                                        <div class="btn-group">
+                                            <button class="btn text-white dropdown-toggle dropdown-options threeCircles-btn  d-flex flex-column justify-content-around align-items-center" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                                <span class="circle"></span>
+                                                <span class="circle"></span>
+                                                <span class="circle"></span>
+                                            </button>
+                                        
+                                            <ul class="dropdown-menu dropdown_secondary" aria-labelledby="defaultDropdown">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Payments made</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Insurance and Assistance</a>
+                                                </li>
+                                            
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Help</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>  
+                    </header>
+    
+    
+                    <main  class="row p-4 pt-0">
+                        <div ref="loader" class="text-center table_container">
+                            <img src="./assets/loader.svg" alt="loader">
+                        </div>
+                        <div ref="accountsSection" id="accountsSection">
+                            <section class="table_container px-3 pt-2 pb-3 mb-3">
+                                <div class="d-flex justify-content-between align-items-end mb-3">
+                                    <p class="subtitle_section">Balance</p>
+                                    
+                                    <div class="btn-group" v-if="accounts.length > 0">
+                                        <button class="btn text-white dropdown-toggle transaction_btn" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                            See transactions 
+                                        </button>
+        
+                                        <ul class="dropdown-menu dropdown_secondary" aria-labelledby="defaultDropdown" >
+                                            <li class="pb-1 mb-3 border-bottom border-2">Select your account</li>
+                                            <li class="mb-2" v-for="account in accounts">
+                                                <a class="dropdown-item" :href="crearUrl(account.id)"  >{{account.number}} </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <button v-if="client.role == 'CLIENT'" @click="createAccount" class="btn text-white transaction_btn mb-2" type="button">
+                                    <i class="fas fa-plus-circle navbar_icon me-1"></i>Create a new account
+                                </button>
+        
+                                <table class="table text-light">
+                                    <thead>
+                                        <tr class="pb-2">
+                                            <th class="titles_table text-center">ACCOUNTS ID</th>
+                                            <th class="titles_table">NUMBER</th>
+                                            <th class="titles_table">TYPE</th>
+                                            <th class="titles_table">BALANCE</th>
+                                            <th class="titles_table col-1"></th>
+                                        </tr>
+                                    </thead>
+        
+                                    <tbody>
+                                        <tr v-for="account in accounts">
+                                            <td v-cloak class="py-2 text-center">{{account.id}}</td>
+                                            <td v-cloak class="py-2">{{account.number}}</td>
+                                            <td v-cloak class="py-2">{{account.accountType}}</td>
+                                            <td v-cloak class="py-2">&dollar;{{account.balance}}</td>
+                                            <td class="py-2 text-center"><p @click.prevent="deleteAccount(account.number)" class="delete-btn">Delete</p></td>
+                                        </tr>
+                                    </tbody>
+        
+                                </table>
+                                <div v-if="accounts.length == 0" class="text-center">
+                                    <p>I'm so sorry, you don't have any account</p>
+                                </div>
+                            </section>
+        
+                            <section class="table_container px-3 pt-2 pb-5 loans_container">
+                                <div class="d-flex justify-content-between align-items-end mb-2">
+                                    <p class="subtitle_section">Loans</p>                            
+                                </div>
+        
+                                <button v-if="loans.length < 3 && client.role == 'CLIENT'" @click="redirecToApplyLoan" class="btn text-white transaction_btn mb-2" type="button">
+                                    <i class="fas fa-plus-circle navbar_icon me-1"></i>apply a new loan
+                                </button>
+                                <button v-else-if="loans.length >= 3 && client.role == 'CLIENT'" @click="applyLoanError" class="btn text-white transaction_btn mb-2" type="button">
+                                    <i class="fas fa-plus-circle navbar_icon me-1"></i>apply a new loan
+                                </button>
+        
+                                <table class="table text-light">
+                                    <thead>
+                                    <tr class="pb-2">
+                                        <th scope="col" class="titles_table text-center">ID OPERATION</th>
+                                        <th scope="col" class="titles_table text-center">TYPE</th>
+                                        <th scope="col" class="titles_table text-center">AMOUNT TO PAY</th>
+                                        <th scope="col" class="titles_table text-center">PAYMENTS</th>
+                                    </tr>
+                                    </thead>
+        
+                                    <tbody>
+                                    <tr v-for="loan in loans">
+                                        <td class="py-2 text-center">{{loan.id}}</td>
+                                        <td class="py-2 text-center">{{loan.loanName}}</td>
+                                        <td class="py-2 text-center">&dollar;{{loan.amount}}</td>
+                                        <td class="py-2 text-center">{{loan.payments}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+        
+                                <div class="text-center" v-if="loans.length == 0">
+                                    <p class="text-danger">YOU DON'T HAVE ANY LOAN YET</p>
+                                </div>
+                            </section>
+                        </div>
+                    </main> 
+                </div>
+                
+    
+                <footer class="row d-flex flex-column flex-md-row justify-content-between">
+                    <div class="col-md-7 d-flex justify-content-around">
+                        <a href="#">MINDHUB BROTHERS BANK</a>
+                        <a href="#">ABOUT US</a>
+                        <a href="#">Q&A</a>
+                    </div>
+    
+                    <div class="col-md-5 d-flex justify-content-center justify-content-md-end pt-3 pt-md-0">
+                        &copy; 2021 made by Luis Maestre
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./js/accounts.js"></script>
+</body>
+</html>

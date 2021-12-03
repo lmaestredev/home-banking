@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/58d99c8dac.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/customs.css">
+    <link rel="shortcut icon" href="./assets/bank.ico" type="image/x-icon" class="favicon">
+    <title>MindHub Brothers Bank</title>
+</head>
+<body>
+    <div id="app"  >
+        <div class="container-fluid row d-fle app_container" >
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <i class="fas fa-university text-white"></i>
+                    <h1 class="offcanvas-title" id="offcanvasExampleLabel">MINDHUB BROTHERS BANK</h1>
+                    <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+    
+                <div class="offcanvas-body">
+                    <div class="d-flex flex-column pt-3 px-2" v-cloak>
+                        <a  href="./accounts.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="fas fa-wallet navbar_icon"></i></span>
+                            <p class="navbar_item">ACCOUNTS</p>  
+                        </a>
+    
+                        <a href="./cards.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-credit-card navbar_icon"></i></span>
+                            <p class="navbar_item">CARDS</p>  
+                        </a>
+    
+                        <a  href="./transactions.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-arrow-left-right navbar_icon"></i></span>
+                            <p class="navbar_item">SEND MONEY</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'" href="./create-loan.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-cash-coin navbar_icon"></i></span>
+                            <p class="navbar_item">CREATE NEW LOAN</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-pie-chart navbar_icon"></i></span>
+                            <p class="navbar_item">H2 CONSOLE</p>  
+                        </a>
+
+                        <a v-if="client.role == 'ADMIN'"  href="../manager.html" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                            <span class="span_icon"><i class="bi bi-folder-plus navbar_icon"></i></span>
+                            <p class="navbar_item">MANAGER</p>  
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+    
+            <div class="col d-flex flex-column justify-content-between main_container">
+                <div class=" mb-2 mb-md-0">
+                    <header class="d-flex justify-content-between align-items-center px-3 px-md-2 py-3 mb-3">
+                        <nav class="navbar navbar-expand-md w-100">
+                            <div class="container-fluid d-flex justify-content-between px-md-4">
+    
+                                <div class="w-100 d-flex align-items-center justify-content-between container_heading ">
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn navbar-btn d-lg-none " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                            <span class="bars bar1"></span>
+                                            <span class="bars bar2"></span>
+                                            <span class="bars bar3"></span>
+                                        </button>
+                                    
+                                        <a class="navbar-brand subtitle_page" href="./cards.html">CARDS</a>
+                                    </div>
+    
+    
+                                    <div class="d-flex">
+                                        <div  class=" dropdown">
+                                            <a v-cloak class="nav-link user_name dropdown-toggle me-md-3" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{client.firstName}} {{client.lastName}}
+                                            </a>
+                                            <ul class="dropdown-menu dropdown_secondary" aria-labelledby="navbarDropdownMenuLink">
+                                                <li class="profile_item"><a class="dropdown-item" href="#">Profile</a></li>
+                                                <li><a @click="logOut" class="dropdown-item" href="#"><i class="bi bi-box-arrow-left"></i> Log out</a></li>
+                                            </ul>
+                                        </div>
+    
+                                        <div class="btn-group">
+                                            <button class="btn text-white dropdown-toggle dropdown-options threeCircles-btn  d-flex flex-column justify-content-around align-items-center" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                                <span class="circle"></span>
+                                                <span class="circle"></span>
+                                                <span class="circle"></span>
+                                            </button>
+                                        
+                                            <ul class="dropdown-menu dropdown_secondary" aria-labelledby="defaultDropdown">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Payments made</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Insurance and Assistance</a>
+                                                </li>
+                                            
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="#">Help</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>  
+                    </header>
+    
+                    <main class="row px-2 px-md-4 pb-md-2 pt-0 h-100">
+                        <div ref="loader" class="text-center table_container">
+                            <img src="./assets/loader.svg" alt="loader">
+                        </div>
+                        <section ref="cardSection" id="cardSection" class="table_container  pt-2">
+                            <div class="d-flex justify-content-between align-items-end px-3 pb-2  subtitle_cards">
+                                <p class="subtitle_section">Cards</p>
+                                <p v-if="cards.length > 0" class="d-none d-md-block seeCvv_message">Get on the card to see cvv</p>
+                                <p v-if="cards.length > 0" class="d-block d-md-none seeCvv_message">Tap on the card to see cvv</p>
+                            </div>
+                            
+                            <button  v-if="client.role == 'CLIENT' && cards.length < 6" @click="createCard" class="btn text-white transaction_btn mt-2 ms-3" type="button">
+                                <i class="fas fa-plus-circle navbar_icon me-1"></i>
+                                Create a new card
+                            </button>
+                            <button  v-if="cards.length == 6 && client.role == 'CLIENT'" @click="createCardError" class="btn text-white transaction_btn mt-2 ms-3" type="button">
+                                <i class="fas fa-plus-circle navbar_icon me-1"></i>
+                                Create a new card
+                            </button>
+
+
+                            <article v-if="cards.length > 0" class="card_container d-flex flex-column flex-lg-row justify-content-around align-items-center position-relative pb-5" >
+    
+                                <div v-if="creditCards.length > 0" class="carousel_container d-flex flex-column align-items-center">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <p class="subtitle_cardType">Credit cards</p>
+                                        <hr>
+                                    </div>
+                                    
+                                    <input  v-for="(creditCard, index) in creditCards" type="radio" name="creditSlides" :id="[index ? `radioCredit${index + 1}` : `radioCredit${index + 1}`]" checked>
+                                    
+    
+                                    <div v-if="creditCards.length > 0 && client.role == 'CLIENT'" class="d-flex flex-column align-items-center" >
+                                        <ul class="slides">
+                                            <li  v-for="(card, index) in creditCards" class="position-relative"  :class="[index ? `slide${index + 1}` : `slide${index + 1}` ]">
+                                                <div class='slide'>
+                                                    <div class="card" :class="[card.cardColor === 'TITANIUM' ? 'titanium' : card.cardColor === 'SILVER' ? 'silver' : 'gold']">
+                                                        <div class="front_creditCard  p-2">
+                                                            <div class="d-flex justify-content-between px-2 align-items-center">
+                                                                <p class="titleByCardColor">{{card.cardColor}} </p>
+                                                                <i class="fas fa-university text-white"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-center px-2">
+                                                                <img src="./assets/chipRemove.png" alt="chip" class="chip">
+                                                                <i class="bi bi-wifi-2"></i>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <p class="cardNumber">{{card.number}} </p>
+                                                                <p class="cardDates text-start px-s-3">valid since: {{changeDates(card.fromDate)}}</p>
+                                                                <p class="cardDates text-start px-s-3" :class="[changeDates(card.thruDate).valueOf() == changeDates(dateNow).valueOf() ? 'text-danger' : null]">valid THRU: {{changeDates(card.thruDate)}} </p>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center px-2">
+                                                                <div class="name_validThru_box"> 
+                                                                    <p class="cardHolder">{{card.cardHolder}}</p> 
+                                                                </div>
+                                                                <div>
+                                                                    <img src="./assets/mastercard.png" alt="chip">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="back_creditCard pt-2">
+                                                            <p class="backCard_text ms-2 mb-2">IF THIS CARD IS FOUND. RETURN TO MINDHUB BROTHERS BANK</p>
+                                                            <div class="lineBlack mb-1 mb-md-3"></div>
+                                                            <div class="cvv_container text-end text-white pe-2 mb4"><p>{{card.cvv}}</p></div>
+                                                            <p class="backCard_text text-justify">This card is non-transferable and for the exclusive use of the holder whose signature appears above. Valid between the dates indicated. The cardholder uses this card in accordance with the terms and conditions that govern its use.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <p v-if="btnDeleteCard" @click.prevent="deleteACreditCard(card.number)" title="Delete card"><i class="bi bi-x-circle-fill deleteCard-btn"></i></p>
+                                                
+                                            </li>
+                                        </ul>
+        
+                                        <div class="navigation d-flex justify-content-between align-items-center justify-content-center" v-if="creditCards.length > 0">
+                                            <label v-for="(creditCard, index) in creditCards" :for="[index ? `radioCredit${index + 1}` : `radioCredit${index + 1}`]" :id="[index ? `radioCreditSelect${index + 1}` : `radioCreditSelect${index + 1}`]"></label>
+                                        </div>    
+                                    </div> 
+                                </div>
+                                
+                                <div v-if="debitCards.length > 0" class="carousel_container d-flex  flex-column align-items-center">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <p class="subtitle_cardType">Debit cards</p>
+                                        <hr>
+                                    </div>
+                                    
+                                    <input v-for="(debitCard, index) in debitCards" type="radio" name="debitSlides" :id="[index ? `radioDebit${index + 1}` : `radioDebit${index + 1}`]" checked>
+    
+                                    <div v-if="debitCards.length > 0 && client.role == 'CLIENT'" class="d-flex flex-column align-items-center">
+                                        <ul class="slides">
+                                            <li v-for="(card, index) in debitCards"  :class="[index ? `slide${index + 1}` : `slide${index + 1}`]">
+                                                <div class='slide'>
+                                                    <div class="card" :class="[card.cardColor === 'TITANIUM' ? 'titanium' : card.cardColor === 'SILVER' ? 'silver' : 'gold']">
+                                                        <div class="front_creditCard p-2">
+                                                            <div class="d-flex justify-content-between px-2 align-items-center">
+                                                                <p class="titleByCardColor">{{card.cardColor}} </p>
+                                                                <i class="fas fa-university text-white"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-center px-2">
+                                                                <img src="./assets/chipRemove.png" alt="chip" class="chip">
+                                                                <i class="bi bi-wifi-2"></i>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <p class="cardNumber">{{card.number}} </p>
+                                                                <p class="cardDates text-start px-s-3">valid since: {{changeDates(card.fromDate)}}</p>
+                                                                <p class="cardDates text-start px-s-3" :class="[changeDates(card.thruDate).valueOf() == changeDates(dateNow).valueOf() ? 'text-danger' : null]">valid THRU: {{changeDates(card.thruDate)}} </p>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between align-items-center px-2">
+                                                                <div class="name_validThru_box">
+                                                                    
+                                                                    <p class="cardHolder">{{card.cardHolder}}</p> 
+                                                                </div>
+                                                                <div>
+                                                                    <img src="./assets/visa.png" alt="chip">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="back_creditCard pt-2">
+                                                            <p class="backCard_text ms-2 mb-2">IF THIS CARD IS FOUND. RETURN TO MINDHUB BROTHERS BANK</p>
+                                                            <div class="lineBlack mb-3"></div>
+                                                            <div class="cvv_container text-end text-white pe-2 mb4"><p>{{card.cvv}}</p></div>
+                                                            <p class="backCard_text text-justify">This card is non-transferable and for the exclusive use of the holder whose signature appears above. Valid between the dates indicated. The cardholder uses this card in accordance with the terms and conditions that govern its use.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <p v-if="btnDeleteCard" @click.prevent="deleteADebitCard(card.number)" title="Delete card"><i class="bi bi-x-circle-fill deleteCard-btn"></i></p>
+
+                                            </li>
+                                        </ul>
+        
+                                        <div class="navigation d-flex justify-content-around align-items-center justify-content-center" v-if="debitCards.length > 0">
+                                            <label v-for="(debitCard, index) in debitCards" :for="[index ? `radioDebit${index + 1}` : `radioDebit${index + 1}`]" :id="[index ? `radioDebitSelect${index + 1}` : `radioDebitSelect${index + 1}`]"></label>
+                                        </div>
+                                    </div>
+                                </div>  
+                                
+                                <p @click.prevent="changeDeleteBtnValue" v-if="cards.length > 0" class="position-absolute bottom-0 end-0 me-3 wantDeleteCard-btn">I want delete a card</p>
+                            </article>
+
+                            <div class="card_container py-4 d-flex justify-content-center  h-100">
+                                <p  v-if="cards.length == 0" class="text-danger">I'm so sorry, you don't have any cards yet :(</p>
+                            </div>
+                        </section>
+                    </main> 
+                </div>
+                
+    
+                <footer class="row d-flex flex-column flex-md-row justify-content-between">
+                    <div class="col-md-7 d-flex justify-content-around">
+                        <a href="#">MINDHUB BROTHERS BANK</a>
+                        <a href="#">ABOUT US</a>
+                        <a href="#">Q&A</a>
+                    </div>
+    
+                    <div class="col-md-5 d-flex justify-content-center justify-content-md-end pt-3 pt-md-0">
+                        &copy; 2021 made by Luis Maestre
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./js/cards.js"></script>
+</body>
+</html>

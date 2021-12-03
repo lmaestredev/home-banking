@@ -1,0 +1,879 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+/* font-weight:300/400/500 */
+
+*{
+    margin:0 !important;
+    padding:0 !important;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.favicon{
+    width: 40px;
+    height: 40px;
+}
+
+.alertyLuis{
+    width: 200px;
+    height: 85px;
+    position: absolute;
+    background-color: #fff;
+    right: 20px;
+    top: 20px;
+}
+
+body{
+    background-color: #1e1e2f;
+    color: white;
+    overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 300 !important;
+}
+
+a{
+    color: white !important;
+    text-decoration: none !important;
+}
+
+/* vartical navbar styles */
+.offcanvas{
+    padding: .7rem !important;
+    padding-top: 2.3rem !important;
+    width: 260px;
+    background-color: #247df7;
+    transition-duration: .5s !important;
+}
+
+.btn-close{
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    left: 106px;
+    top: 5px;
+    border: 1px solid;
+    border-radius: 100px !important;
+}
+
+.offcanvas-header{
+    align-items: end !important;
+    border-bottom: 1px solid #ffffff85;
+    padding-bottom: 1rem !important;
+}
+
+.fa-university{
+    font-size: 2.55rem;
+    color: #1e1e2f !important;
+}
+
+h1{
+    font-size: .75rem;
+    letter-spacing: 1px;
+    text-align: end;
+}
+
+.fa-university-h1{
+    font-size: 1.5rem;
+    color: white !important;
+}
+
+.item_container{
+    color:#ffffffa6 !important;
+    transition: all 300ms;
+}
+
+.item_container:hover{
+    color: white !important;
+}
+
+.span_icon{
+    width: 15%;
+    text-align: center;
+}
+
+.navbar_item{
+    font-size:.60rem;
+    letter-spacing: 1px;
+    width: 80%;
+}
+
+/* layout */
+.main_container{
+    height: 100vh;
+}
+
+/* header's styles */
+
+.user_name{
+    font-size: .8rem !important;
+}
+
+.dropdown-options::after {
+    display: none !important;
+}
+
+.container_heading{
+    width:92%;
+    position: relative;
+}
+
+.dropdown-menu.show {
+    padding: 1rem !important;
+    background-color: #fff;
+    left: initial;
+    right: -3px !important;
+    font-size: .55rem;
+}
+
+.nav-item{
+    margin-bottom: .3rem !important;
+}
+
+.dropdown-menu.show a{
+    color: #212529 !important;
+}
+
+.profile_item{
+    padding-bottom: .8rem !important;
+    border-bottom: 1px solid #212529;
+    margin-bottom: 1rem !important;
+}
+
+.navbar-btn{
+    width: 20px;
+    height: 20px;
+    margin-right: .4rem !important;
+    border:none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.bars{
+    width: 100%;
+    border: 1px solid white;
+}
+
+.bar2{
+    width:80%;
+}
+
+.navbar-toggler:focus {
+    box-shadow:none !important;
+}
+
+.threeCircles-btn{
+    width: 25px;
+    height: 25px;
+}
+
+.circle{
+    width: 4px;
+    height: 4px;
+    border-radius:100px ;
+    background-color: white;
+}
+
+.subtitle_page{
+    font-size: .7rem !important;
+    font-weight: 400;
+    color: #ffffffe0 !important;
+}
+
+.signIn_btn{
+    padding: 5px !important;
+    border: 1px solid;
+    border-radius: 15px 15px;
+    font-size: .7rem;
+    background-color: #537895;
+    background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+    transition: all 500ms;
+}
+
+.sigIn_btn:hover{
+    background: #09203f;
+}
+
+/* main */
+.btn:focus {
+    box-shadow: none;
+}
+.mindHub_title{
+    font-size: 1rem;
+    letter-spacing: 0px;
+}
+.subtitle_section{
+    font-size: .8rem;
+}
+
+.transaction_btn{
+    font-size: .6rem;
+
+}
+
+.directory-table{
+    width:80%;
+    margin:0 auto !important;
+}
+
+.table_container{
+    background-color: #27293d;
+    border-radius: 15px;
+}
+
+.loans_container{
+    height: 267px;
+}
+
+.titles_table{
+    color:#ffffffa6 !important;
+    font-weight: 500;
+    font-size: .45rem !important;
+}
+
+.subtitle_cards{
+    border-bottom: 1px solid;
+}
+
+tr{
+    border-color: #ffffffa6 !important;
+}
+
+td {
+    font-size: .5rem;
+}
+
+.delete-btn{
+    background: red;
+    border-radius: 5px;
+    font-weight: 500;
+    letter-spacing: 0px;
+    font-size: .7rem;
+    cursor: pointer;
+}
+
+/* cards */
+#accountsSection,
+#cardSection,
+#accountsSection,
+#transactionSection{
+    display:none;
+}
+
+.seeCvv_message{
+    font-size: .65rem;
+}
+.subtitle_cardType{
+    font-size: .7rem;
+}
+.slide{
+    perspective: 1000px;
+}
+
+.card{
+    width: 250px;
+    height: 160px;
+    position: relative;
+    border-radius: 7%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.slide:hover .card {
+    transform: rotateY(180deg);
+}
+
+.front_creditCard,
+.back_creditCard{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.titleByCardColor{
+    font-weight: 500;
+    font-size: .7rem;
+    letter-spacing: 2px;
+}
+
+.card .fa-university{
+    font-size: 1.5rem;
+}
+
+.chip{
+    width: 20px;
+}
+
+.bi-wifi-2{
+    display: inline-block;
+    transform: rotate(90deg);
+    font-size: 1rem;
+    color: white ;
+}
+
+.cardNumber{
+    font-size: .7rem !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.wantAcard_text {
+    font-size: .35rem !important;
+}
+
+.wantAcard_btn{
+    border-radius: 20px 20px;
+    font-size: .8rem;
+    padding: 3px 7px !important;
+}
+
+.wantAcard_btn a{
+    color:#321e4b !important;
+}
+
+.wantAcard_btn:hover{
+    color: white;
+    background-color: #bdd4e7;
+    background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
+}
+
+.cardDates{
+    font-size: .45rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.gold{
+    background-color: #f39f86;
+    background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);    
+    color: #27293d;
+}
+
+.silver{
+    background-image: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%);
+    color: #27293d;
+}
+
+.titanium{
+    background-color: #0cbaba;
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+}
+
+.name_validThru_box{
+    font-size: .5rem;
+}
+
+.wantDeleteCard-btn{
+    font-size: .6rem;
+    border: 1px solid;
+    padding: 3px !important;
+    cursor: pointer;
+    transition: all 400ms;
+}
+
+.wantDeleteCard-btn:hover{
+    background-color: #0cbaba;
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+}
+
+.deleteCard-btn{
+    color: red;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 0.5rem !important;
+}
+
+/* back cards */
+.back_creditCard{
+    transform: rotateY(180deg);
+}
+
+.backCard_text{
+    font-size: .4rem;
+}
+
+.lineBlack{
+    height: 30px;
+    width: 100%;
+    background-color: rgb(158, 154, 154);
+}
+
+.cvv_container{
+    height: 30px;
+    width: 85%;
+    padding-left: .8rem !important;
+    padding-top: 8px !important;
+    margin: 0 auto !important;
+    background-color: rgb(30 30 47);;
+    font-size: .6rem;
+}
+
+.carousel_container{
+    width: auto;
+    height: auto;
+    padding-top: .5rem !important;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel_container input{
+    display: none;
+}
+
+.carousel_container hr{
+    width: 50%;
+    height: 3px;
+    margin-bottom: .5rem !important;
+    color: #247df7;
+    opacity: 1 !important;
+}
+
+.slides{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    transition: all 1s;
+}
+
+.slides li{
+    width: 100%;
+    position: relative;
+    list-style: none;
+}
+
+.navigation{
+    width:50px;
+    padding-top: 5px !important;
+}
+
+.navigation label{
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: solid 2px #3838E3 ;
+}
+
+.slide1, .slide2, .slide3{
+    transition: all 1s;
+    display: none;
+}
+
+#radioCredit1:checked ~ div .slides .slide1,
+#radioCredit2:checked ~ div .slides .slide2,
+#radioCredit3:checked ~ div .slides .slide3,
+#radioDebit1:checked ~ div .slides .slide1,
+#radioDebit2:checked ~ div .slides .slide2,
+#radioDebit3:checked ~ div .slides .slide3
+{
+    display: flex;
+    justify-content: center;
+}
+
+.navigation label:hover{
+    cursor: pointer;
+}
+
+#radioCredit1:checked ~ div .navigation label#radioCreditSelect1,
+#radioCredit2:checked ~ div .navigation label#radioCreditSelect2,
+#radioCredit3:checked ~ div .navigation label#radioCreditSelect3,
+#radioDebit1:checked ~ div .navigation label#radioDebitSelect1,
+#radioDebit2:checked ~ div .navigation label#radioDebitSelect2,
+#radioDebit3:checked ~ div .navigation label#radioDebitSelect3
+{
+    background: #3838E3 !important;
+}
+
+/* form to get a new card */
+.inputs_cardType_container label{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: transparent;
+    border: solid 2px #3838E3;
+}
+
+#inputDebit:checked ~ .inputs_cardType_container label#radioDebitSelect,
+#inputCredit:checked ~ .inputs_cardType_container label#radioCreditSelect{
+    background: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%);
+    color: #27293d;
+}
+
+#inputGold:checked ~ .inputs_cardType_container label#radioGoldSelect{
+    background-color: #f39f86;
+    background: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);    
+}
+
+#inputSilver:checked ~ .inputs_cardType_container label#radioSilverSelect{
+    background: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%);
+}
+
+#inputTitanium:checked ~ .inputs_cardType_container label#radioTitaniumSelect{
+    background-color: #0cbaba;
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+}
+
+
+
+/* main index.html */
+.textErrorSigIn{
+    font-weight:500;
+}
+
+.eyeBtn {
+    position: absolute;
+    left: 232px;
+    bottom: 50px;
+    cursor: pointer;
+    color: black;
+}
+
+.eyeRegister,
+.eyeRegister2{
+    position: absolute;
+    right: 7px;
+    bottom: 128px;
+    color: black;
+    cursor: pointer;
+}
+
+.eyeRegister2{
+    bottom:64px;
+}
+
+.openAccount_text{
+    font-size: 1.5rem;
+    width: 90%;
+    margin: 1rem auto !important;
+}
+
+.navbar_index{
+    background:#27293d;
+}
+
+.form_transaction{
+    width: 80%;
+}
+
+.subtitle_transactionData{
+    font-size: .7rem;
+}
+
+.max_balance{
+    cursor: pointer;
+}
+
+.form_index{
+    width: 320px;
+    min-height: 250px;
+    background-color: #537895;
+    background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+}
+
+fieldset{
+    width: 80%;
+}
+
+fieldset label{
+    font-size: .75rem;
+}
+
+fieldset input[type="text"],
+fieldset label input[type="password"]::placeholder{
+    font-size: .6rem;
+}
+
+fieldset input[type="password"]{
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+fieldset input[type="text"],
+fieldset input[type="password"]{
+    width: 100%;
+    height: 30px;
+}
+
+input[disabled]{
+    background-color: rgb(230, 225, 225) !important;
+}
+
+#transaction_amount{
+    width: 150px;
+}
+
+#transaction_description{
+    width:200px;
+}
+
+.submit_transaction{
+    width: 20%;
+}
+
+.submit_index,
+.submit_transaction{
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-size: .75rem;
+    padding: 3px !important;
+    transition: all 500ms;
+}
+
+.fieldset_item{
+    font-size: .65rem;
+    transition: all 300ms;
+}
+
+.openAccount_link{
+    width: 100%;
+    padding:10px !important;
+    background:#09203f;
+    transition: all 500ms;
+}
+
+.fieldset_item:hover,
+.openAccount_link:hover{
+    text-decoration: white underline !important;
+    
+}
+.openAccount_link:hover,
+.submit_index:hover{
+    background-color: #537895
+}
+
+.openAccount_link a{
+    font-size: .75rem;
+}
+
+.form2_index{
+    width: 320px;
+}
+
+.form2_index .span1{
+    padding: 5px 10px !important;  
+    background-color: #f5f5f1;
+    background-image: linear-gradient(315deg, #e57474 0%, #ff0c18 74%);
+}
+
+.form2_index .span2{
+    padding: 5px 10px !important;  
+    background-color: #ff0a0a;
+}
+
+.form2_index span i{
+    font-size: 1.45rem;
+}
+
+.form2_index span a{
+    font-size: .75rem;
+    transition: all 400ms;
+}
+
+.form2_index span a:hover{
+    text-decoration: underline !important;
+}
+
+/* form transaction */
+.form-select,
+.select_item{
+    font-size: .7rem;
+}
+
+.input-group{
+    width: 40% !important;
+}
+
+.addContactTitle{
+    padding-top: 8px !important;
+}
+
+
+
+/* footer */
+
+footer{
+    font-size: .45rem !important;
+    font-weight: 400;
+}
+
+@media (min-width: 768px) {
+    .app_container{
+        padding:0 1rem !important;
+        padding-top: 4rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+
+    header{
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        left: 0;
+    }
+
+    .dropdown-menu.show {
+        font-size: 1rem;
+    }
+
+    .dropdown_secondary{
+        font-size: .8rem !important;
+    }
+
+    .subtitle_page{
+        padding-left: 1rem !important;
+        font-size: 1.2rem !important;
+    }
+
+    .user_name {
+        font-size: 1.3rem !important;
+    }
+
+    .threeCircles-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .container_heading{
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    main{
+        position:initial;
+    }
+
+    .welcome_text_index {
+        font-size: 1.5rem;
+    }
+
+    .fa-university-h1{
+        font-size: 2rem;
+    }
+
+    .mindHub_title{
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        word-spacing: 10px;
+        font-weight: 300;
+    }
+
+    .subtitle_section {
+        font-size: 1rem;
+    }
+
+    .titles_table{
+        font-size: .73rem !important;
+    }
+
+    td {
+        font-size: .8rem;
+    }
+
+    .seeCvv_message{
+        font-size: 1rem;
+    }
+
+    .card{
+        width: 280px;
+        height: 191px;
+    }
+
+    .subtitle_cardType {
+        font-size: 1rem;
+    }
+
+    .chip {
+        width: 30px;
+    }
+
+    .bi-wifi-2 {
+        font-size: 1.5rem;
+    }
+
+    .cardHolder{
+        font-size: .8rem;
+    }
+
+    .lineBlack{
+        height: 40px;
+    }
+
+    .navbar_index{
+        height: 50px;
+    }    
+
+}
+
+@media (min-width:992px){
+    .offcanvas{
+        height: 100vh;
+        position: relative;
+        padding: .7rem !important;
+        visibility: visible !important;
+        border-radius: 15px;
+    }
+
+    .offcanvas-start {
+        transform: translateX(0%);
+    }
+    .mindHub_title{
+        font-size: 1.5rem;
+    }
+
+    footer {
+        font-size: .8rem !important;
+    }
+}
+
+
+/* Sweet alert styles */
+
+
+.swal2-popup {
+    width: 31em !important;
+    padding: 0.7rem 0.5rem !important;
+    font-size: .3rem !important;
+    right: 30px;
+    top: 30px;
+    padding-top: 0 !important;
+}
+
+.swal2-icon {
+    margin: 2.5em auto 0.6em !important;
+}
+
+.swal2-title {
+    padding: 0.8em 1em 0 !important;
+    font-size: 2em;
+}
+
+.swal2-styled.swal2-deny {
+    background-color: #5cdc37 !important;
+}
+
+.swal2-styled {
+    margin: 0.3125em !important;
+    padding: 0.625em 1.1em !important;
+    transition: box-shadow .1s;
+    box-shadow: 0 0 0 3px transparent;
+    font-weight: 500;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #17133b !important;
+}
+
+.alertConfirm{
+    position: absolute !important;
+    top: 72px;
+    grid-column: none !important;
+    grid-row: none !important;
+    right: auto;
+    width: 36em !important;
+    font-size: .45rem !important;
+}

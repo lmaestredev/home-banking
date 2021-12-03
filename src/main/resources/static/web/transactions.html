@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/58d99c8dac.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./assets/bank.ico" type="image/x-icon" class="favicon">
+    <link rel="stylesheet" href="./styles/customs.css">
+    <title>MindHub Brothers Bank</title>
+    
+</head>
+<body>
+    
+    <div id="app" class="container-fluid row d-fle app_container" >
+        
+ 
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <i class="fas fa-university text-white"></i>
+                <h1 class="offcanvas-title" id="offcanvasExampleLabel">MINDHUB BROTHERS BANK</h1>
+                <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+
+            <div class="offcanvas-body">
+                <div class="d-flex flex-column pt-3 px-2" v-cloak>
+                    
+                    <a  href="./accounts.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <span class="span_icon"><i class="fas fa-wallet navbar_icon"></i></span>
+                        <p class="navbar_item">ACCOUNTS</p>  
+                    </a>
+
+                    <a href="./cards.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <span class="span_icon"><i class="bi bi-credit-card navbar_icon"></i></span>
+                        <p class="navbar_item">CARDS</p>  
+                    </a>
+
+                    <a  href="./transactions.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <span class="span_icon"><i class="bi bi-arrow-left-right navbar_icon"></i></span>
+                        <p class="navbar_item">SEND MONEY</p>  
+                    </a>
+
+                    <a v-if="client.role == 'ADMIN' "  href="./create-loan.html" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <span class="span_icon"><i class="bi bi-cash-coin navbar_icon"></i></span>
+                        <p class="navbar_item">CREATE NEW LOAN</p>  
+                    </a>
+
+                    <a v-if="client.role == 'ADMIN'"  href="http://localhost:8080/h2-console/login.do?jsessionid=538e23316c1895df0e53b7e9c6dc8be8" target="_blank" class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <span class="span_icon"><i class="bi bi-pie-chart navbar_icon"></i></span>
+                        <p class="navbar_item">H2 CONSOLE</p>  
+                    </a>
+
+                    <a v-if="client.role == 'ADMIN'"  href="../manager.html" target="_blank"  class="d-flex mb-4 justify-content-between align-items-center item_container">
+                        <span class="span_icon"><i class="bi bi-folder-plus navbar_icon"></i></span>
+                        <p class="navbar_item">MANAGER</p>  
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col d-flex flex-column justify-content-between main_container">
+            <div>
+                <header class="d-flex justify-content-between align-items-center px-3 px-md-2 py-3 mb-3">
+                    <nav class="navbar navbar-expand-md w-100">
+                        <div class="container-fluid d-flex justify-content-between px-md-4">
+
+                            <div class="w-100 d-flex align-items-center justify-content-between container_heading ">
+                                <div class="d-flex align-items-center">
+                                    <button class="btn navbar-btn d-lg-none " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                        <span class="bars bar1"></span>
+                                        <span class="bars bar2"></span>
+                                        <span class="bars bar3"></span>
+                                    </button>
+                                
+                                    <a class="navbar-brand subtitle_page" href="./transactions.html">SEND MONEY</a>
+                                </div>
+
+
+                                <div class="d-flex">
+                                    <div  class=" dropdown">
+                                        <a v-cloak class="nav-link user_name dropdown-toggle me-md-3" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{client.firstName}} {{client.lastName}}
+                                        </a>
+                                        <ul class="dropdown-menu dropdown_secondary" aria-labelledby="navbarDropdownMenuLink">
+                                            <li class="profile_item"><a class="dropdown-item" href="#">Profile</a></li>
+                                            <li><a @click="logOut" class="dropdown-item" href="#"><i class="bi bi-box-arrow-left"></i> Log out</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <button class="btn text-white dropdown-toggle dropdown-options threeCircles-btn  d-flex flex-column justify-content-around align-items-center" type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                            <span class="circle"></span>
+                                            <span class="circle"></span>
+                                            <span class="circle"></span>
+                                        </button>
+                                    
+                                        <ul class="dropdown-menu dropdown_secondary" aria-labelledby="defaultDropdown">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" href="#">Payments made</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" href="#">Insurance and Assistance</a>
+                                            </li>
+                                        
+                                            <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" href="#">Help</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>  
+                </header>
+
+                <main class="row p-4 pt-0">
+                    <div ref="loader" class="text-center table_container">
+                        <img src="./assets/loader.svg" alt="loader">
+                    </div>
+                    <section ref="transactionSection" id="transactionSection" class="table_container pt-2 pb-3 mb-3">
+                        <div class="d-flex justify-content-between align-items-end py-2 pe-3 mb-2 subtitle_cards">
+                            <p class="subtitle_section ps-3">Send money</p>
+
+                            <button v-if="client.role == 'CLIENT' && sendingTo == 'directory'" @click="redirecToeditDirectory" class="btn text-white transaction_btn" type="button">
+                                <i class="fas fa-plus-circle navbar_icon me-1"></i>Edit directory
+                            </button>
+                        </div>
+                        
+                        <article class="d-flex justify-content-center">
+                            <form class="form_transaction py-3 d-flex flex-column align-items-center mb-2">
+                                <fieldset  class="w-100 mb-3">
+                                    <p class="subtitle_transactionData">From:</p>
+                                    <select class="form-select ps-1" aria-label="Default select example" v-model="transactionData.originAccount">
+                                        <option class="select_item" selected disabled>Choose an account</option>
+                                        <option class="select_item" v-for="account in clientAccounts" :value="account.number">{{account.number}} - &dollar;{{account.balance}}</option>
+                                    </select>
+                                </fieldset>
+
+                                 <fieldset class="w-100 mb-3">
+                                    <p class="subtitle_transactionData">Who are you sending to?</p>
+                                    <select v-if="transactionData.originAccount != ''" class="form-select ps-1" aria-label="Default select example" v-model="sendingTo">
+                                        <option value="myAccounts">Myself</option>
+                                        <option v-if="directory.length > 0" value="directory">Directory</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                    <select v-else disabled class="form-select ps-1" aria-label="Default select example">
+
+                                    </select>
+                                </fieldset>
+
+                                <fieldset v-if="sendingTo == 'myAccounts'" class="w-100 mb-3">
+                                    <p class="subtitle_transactionData">Destination Account:</p>
+                                    <select class="form-select ps-2" aria-label="Default select example" v-model="transactionData.destinationAccount">
+                                        <option selected disabled>Choose a destination account number</option>
+                                        <option v-for="account in filterDestinationAccounts" :value="account.number">{{account.number}}</option>
+                                    </select>
+                                </fieldset>
+
+                                <fieldset v-if="sendingTo == 'directory'" class="w-100 mb-3">
+                                    <p class="subtitle_transactionData">Destination Account:</p>
+                                    <select class="form-select ps-2" aria-label="Default select example" v-model="transactionData.destinationAccount">
+                                        <option selected disabled>Choose a destination account number</option>
+                                        <option v-for="account in directory" :value="account.accountNumber">{{account.fullName}} - {{account.accountNumber}}</option>
+                                    </select>
+                                </fieldset>
+
+                                <fieldset v-if="sendingTo == 'others'" class="w-100 mb-3">
+                                    <p class="subtitle_transactionData">Destination account number:</p>
+                                    <input class="rounded ps-1" v-model="transactionData.destinationAccount" type="text" placeholder="VIN-00000000">
+                                </fieldset>
+
+                                <fieldset v-if="sendingTo == ''" class="w-100 mb-3">
+                                    <p class="subtitle_transactionData">Destination Account:</p>
+                                    <input disabled class="rounded ps-1" type="text" placeholder="VIN-00000000">
+                                </fieldset>
+    
+                                <fieldset class="w-100 d-flex flex-column flex-md-row">
+                                    <div class="me-5 mb-3"> 
+                                        <label for="transactionAmount" class="w-30 me-2 subtitle_transactionData">Amount</label>
+                                        <div class="d-flex">
+                                            <span class="me-1">&dollar;</span> 
+                                            <input class="ps-2" id="transaction_amount" type="text" v-model="transactionData.amount">
+                                        </div>
+                                    </div>
+
+                                    <div v-if="existsDestAccountDirectory.length == 0 && sendingTo == 'others' " class="me-5">
+                                        <p class="subtitle_transactionData addContactTitle">Do you want to add this contact to directory?</p>
+
+                                        <div class=" d-flex align-items-center">
+                                            <input v-model="transactionData.confirmToAdd" type="radio" name="confirmToAdd" value="true">
+                                            <p class="me-3">Yes</p>
+
+                                            <input v-model="transactionData.confirmToAdd" type="radio" name="confirmToAdd" value="false">
+                                            <p class="me-3">No</p>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="changeConfirmToAddBoolean && sendingTo == 'others' " class="mb-2 mb-md-none">
+                                        <p class="subtitle_transactionData addContactTitle">Save like what?</p>
+
+                                        <select class="form-select ps-2" aria-label="Default select example" v-model="transactionData.contactType">
+                                            <option selected disabled>Choose a kind of contact</option>
+                                            <option value="FAMILY">Friends</option>
+                                            <option value="FRIENDS">Family</option>
+                                            <option value="WORK">Work</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                                 
+
+                                <fieldset class="w-100 mb-3 d-flex flex-column">
+                                    <label for="transaction_description" class="w-30 subtitle_transactionData">Description</label> 
+                                    <input id="transaction_description" type="text" v-model="transactionData.description" class="ps-2">
+                                </fieldset>
+                                    
+                                <button v-if="transactionData.originAccount != '' && transactionData.destinationAccount != '' &&transactionData.amount != null && transactionData.description != '' " @click.prevent="transaction"  class="submit_transaction w-20">Send</button>
+                                
+                            </form>
+                        </article>
+                        
+                    </section>
+
+                </main> 
+            </div> 
+
+            <footer class="row d-flex flex-column flex-md-row justify-content-between">
+                <div class="col-md-7 d-flex justify-content-around">
+                    <a href="#">MINDHUB BROTHERS BANK</a>
+                    <a href="#">ABOUT US</a>
+                    <a href="#">Q&A</a>
+                </div>
+
+                <div class="col-md-5 d-flex justify-content-center justify-content-md-end pt-3 pt-md-0">
+                    &copy; 2021 made by Luis Maestre
+                </div>
+            </footer>
+        </div>
+
+        
+    </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./js/transactions.js"></script>
+</body>
+</html>
